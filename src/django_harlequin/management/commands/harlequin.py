@@ -56,7 +56,7 @@ class Command(BaseCommand):
         sslcert = options.get("sslcert")
         sslkey = options.get("sslkey")
 
-        if not dbname and not service:  # pragma: no branch
+        if not dbname and not service:  # pragma: no cover
             # Connect to the default 'postgres' db.
             dbname = "postgres"
         if user:
@@ -70,15 +70,15 @@ class Command(BaseCommand):
 
         if passwd:
             env["PGPASSWORD"] = str(passwd)
-        if service:  # pragma: no branch
+        if service:  # pragma: no cover
             env["PGSERVICE"] = str(service)
-        if sslmode:  # pragma: no branch
+        if sslmode:  # pragma: no cover
             env["PGSSLMODE"] = str(sslmode)
-        if sslrootcert:  # pragma: no branch
+        if sslrootcert:  # pragma: no cover
             env["PGSSLROOTCERT"] = str(sslrootcert)
-        if sslcert:  # pragma: no branch
+        if sslcert:  # pragma: no cover
             env["PGSSLCERT"] = str(sslcert)
-        if sslkey:  # pragma: no branch
+        if sslkey:  # pragma: no cover
             env["PGSSLKEY"] = str(sslkey)
-        if passfile:  # pragma: no branch
+        if passfile:  # pragma: no cover
             env["PGPASSFILE"] = str(passfile)
