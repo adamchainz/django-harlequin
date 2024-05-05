@@ -1,0 +1,6 @@
+coverage[toml]
+django
+psycopg[binary]
+pytest
+pytest-django
+pytest-randomly
