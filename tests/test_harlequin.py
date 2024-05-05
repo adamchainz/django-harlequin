@@ -48,6 +48,27 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
         ConnectionHandler(
             {
                 "default": {
+                    "NAME": "example.db",
+                    "ENGINE": "django.db.backends.sqlite3",
+                }
+            }
+        ),
+    )
+    def test_sqlite(self):
+        self.call_command()
+
+        assert self.run_mock.mock_calls == [
+            mock.call(
+                ["harlequin", "-a", "sqlite", "example.db"], check=True, env=mock.ANY
+            ),
+        ]
+
+    @mock.patch.object(
+        harlequin_command,
+        "connections",
+        ConnectionHandler(
+            {
+                "default": {
                     "NAME": "exampledb",
                     "USER": "user",
                     "PASSWORD": "password123",
