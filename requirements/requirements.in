@@ -1,5 +1,6 @@
 coverage[toml]
 django
+mysqlclient
 psycopg2-binary
 pytest
 pytest-django
