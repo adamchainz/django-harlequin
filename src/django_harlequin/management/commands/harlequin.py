@@ -71,7 +71,7 @@ class Command(BaseCommand):
         client_cert = settings_dict["OPTIONS"].get("ssl", {}).get("cert")
         client_key = settings_dict["OPTIONS"].get("ssl", {}).get("key")
 
-        if database:
+        if database:  # pragma: no branch
             command += ["--database", database]
         if user:  # pragma: no branch
             command += ["--user", user]
