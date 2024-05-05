@@ -1,6 +1,6 @@
 coverage[toml]
 django
-psycopg[binary]
+psycopg2-binary
 pytest
 pytest-django
 pytest-randomly
