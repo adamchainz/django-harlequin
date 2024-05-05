@@ -57,12 +57,28 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
                     "OPTIONS": {},
                 }
             }
-        )
+        ),
     )
     def test_postgres(self):
         self.call_command()
 
         assert self.run_mock.mock_calls == [
-            mock.call(['harlequin', '-a', 'postgres', '--user', 'user', '--host', 'localhost', '--port', '5433', '--dbname', 'exampledb'], check=True, env=mock.ANY),
+            mock.call(
+                [
+                    "harlequin",
+                    "-a",
+                    "postgres",
+                    "--user",
+                    "user",
+                    "--host",
+                    "localhost",
+                    "--port",
+                    "5433",
+                    "--dbname",
+                    "exampledb",
+                ],
+                check=True,
+                env=mock.ANY,
+            ),
         ]
-        assert self.run_mock.mock_calls[0].kwargs['env']['PGPASSWORD'] == "password123"
+        assert self.run_mock.mock_calls[0].kwargs["env"]["PGPASSWORD"] == "password123"
