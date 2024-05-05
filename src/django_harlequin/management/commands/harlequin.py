@@ -59,13 +59,13 @@ class Command(BaseCommand):
         if not dbname and not service:  # pragma: no cover
             # Connect to the default 'postgres' db.
             dbname = "postgres"
-        if user:
+        if user:  # pragma: no branch
             command += ["--user", user]
-        if host:
+        if host:  # pragma: no branch
             command += ["--host", host]
-        if port:
+        if port:  # pragma: no branch
             command += ["--port", str(port)]
-        if dbname:
+        if dbname:  # pragma: no branch
             command += ["--dbname", dbname]
 
         if passwd:
