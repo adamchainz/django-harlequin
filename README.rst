@@ -91,7 +91,3 @@ Configuration
 
 Harlequin automatically loads configuration from ``pyproject.toml`` or its own files within the current working directory, which would mean next to your ``manage.py`` file.
 See Harlequin’s `configuration documentation <https://harlequin.sh/docs/config-file>`__ for details on the available options.
-
-
-Harlequin looks for configuration in several places, per `its confwill pick up configuration files from several places,
-https://harlequin.sh/docs/config-file
