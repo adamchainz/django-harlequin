@@ -34,7 +34,9 @@ class Command(BaseCommand):
         env: dict[str, str] = {}
 
         connection = connections[database]
-        if connection.vendor == "postgresql":
+        if connection.vendor == "sqlite":
+            self.extend_command_env_sqlite(connection, command, env)
+        elif connection.vendor == "postgresql":
             self.extend_command_env_postgres(connection, command, env)
         else:
             raise CommandError(
@@ -45,6 +47,17 @@ class Command(BaseCommand):
         command.extend(parameters)
         env_arg = {**os.environ, **env} if env else None
         subprocess.run(command, check=True, env=env_arg)
+
+    def extend_command_env_sqlite(
+        self, connection: BaseDatabaseWrapper, command: list[str], env: dict[str, str]
+    ) -> None:
+        command.extend(
+            [
+                "-a",
+                "sqlite",
+                connection.settings_dict["NAME"],
+            ]
+        )
 
     def extend_command_env_postgres(
         self, connection: BaseDatabaseWrapper, command: list[str], env: dict[str, str]
