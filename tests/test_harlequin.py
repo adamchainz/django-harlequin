@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import subprocess
+import os
 from functools import partial
 from unittest import mock
 
@@ -19,9 +19,9 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
     call_command = partial(run_command, "harlequin")
 
     def setUp(self):
-        run_mocker = mock.patch.object(subprocess, "run")
-        self.run_mock = run_mocker.start()
-        self.addCleanup(run_mocker.stop)
+        execvpe_mocker = mock.patch.object(os, "execvpe")
+        self.execvpe_mock = execvpe_mocker.start()
+        self.addCleanup(execvpe_mocker.stop)
 
     def test_non_existent_database(self):
         with pytest.raises(CommandError) as excinfo:
@@ -61,8 +61,9 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
     def test_mysql(self):
         self.call_command()
 
-        assert self.run_mock.mock_calls == [
+        assert self.execvpe_mock.mock_calls == [
             mock.call(
+                "harlequin",
                 [
                     "harlequin",
                     "-a",
@@ -78,7 +79,6 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
                     "--port",
                     "3307",
                 ],
-                check=True,
                 env=mock.ANY,
             ),
         ]
@@ -103,8 +103,9 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
     def test_postgres(self):
         self.call_command()
 
-        assert self.run_mock.mock_calls == [
+        assert self.execvpe_mock.mock_calls == [
             mock.call(
+                "harlequin",
                 [
                     "harlequin",
                     "-a",
@@ -118,11 +119,12 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
                     "--dbname",
                     "exampledb",
                 ],
-                check=True,
                 env=mock.ANY,
             ),
         ]
-        assert self.run_mock.mock_calls[0].kwargs["env"]["PGPASSWORD"] == "password123"
+        assert (
+            self.execvpe_mock.mock_calls[0].kwargs["env"]["PGPASSWORD"] == "password123"
+        )
 
     @mock.patch.object(
         harlequin_command,
@@ -139,8 +141,10 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
     def test_sqlite(self):
         self.call_command()
 
-        assert self.run_mock.mock_calls == [
+        assert self.execvpe_mock.mock_calls == [
             mock.call(
-                ["harlequin", "-a", "sqlite", "example.db"], check=True, env=mock.ANY
+                "harlequin",
+                ["harlequin", "-a", "sqlite", "example.db"],
+                env=mock.ANY,
             ),
         ]
