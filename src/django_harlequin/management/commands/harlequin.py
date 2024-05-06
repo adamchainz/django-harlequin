@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-import subprocess
 from argparse import ArgumentParser
 from typing import Any
 
@@ -47,8 +46,8 @@ class Command(BaseCommand):
 
         # Pass through extra options
         command.extend(parameters)
-        env_arg = {**os.environ, **env} if env else None
-        subprocess.run(command, check=True, env=env_arg)
+        env = {**os.environ, **env}
+        os.execvpe(command[0], command, env=env)
 
     def extend_command_env_mysql(
         self, connection: BaseDatabaseWrapper, command: list[str], env: dict[str, str]
