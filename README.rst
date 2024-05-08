@@ -44,12 +44,15 @@ Installation
 
     python -m pip install django-harlequin
 
-**Second,** install the appropriate Harlequin `adapter package <https://harlequin.sh/docs/adapters>`__ for your database backend, if necessary (SQLite is built-in).
-For example, for the `PostgreSQL adapter <https://harlequin.sh/docs/postgres/index>`__:
+**Second,** install Harlequin with appropriate Harlequin `adapter packages <https://harlequin.sh/docs/adapters>`__ for the database backends you use.
+For example, to install Harlequin with the `PostgreSQL adapter <https://harlequin.sh/docs/postgres/index>`__:
 
 .. code-block:: bash
 
-    python -m pip install harlequin-postgres
+    python -m pip 'harlequin[postgres]'
+
+Harlequin does not need to be installed in the same virtual environment as Django, as django-harlequin does not import it.
+You only need the ``harlequin`` command on your path, so you can install Harlequin globally, or in an isolated virtual environment with a tool like `pipx <https://pipx.pypa.io/latest/installation/>`__.
 
 **Third,** add the app to your ``INSTALLED_APPS`` setting:
 

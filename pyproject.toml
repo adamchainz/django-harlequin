@@ -37,7 +37,6 @@ classifiers = [
 ]
 dependencies = [
   "Django>=3.2",
-  "harlequin",
 ]
 [project.urls]
 Changelog = "https://github.com/adamchainz/django-harlequin/blob/main/CHANGELOG.rst"
