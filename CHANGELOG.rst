@@ -2,6 +2,8 @@
 Changelog
 =========
 
+* Declare a dependency on Harlequin so it is installed along with this package.
+
 1.1.0 (2024-05-06)
 ------------------
 
