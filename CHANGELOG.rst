@@ -2,6 +2,9 @@
 Changelog
 =========
 
+1.1.2 (2024-05-10)
+------------------
+
 * Remove the dependency on Harlequin.
   This allows you to use a global install, or an isolated one with a tool like pipx.
 
