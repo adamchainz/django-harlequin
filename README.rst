@@ -49,7 +49,7 @@ For example, to install Harlequin with the `PostgreSQL adapter <https://harlequi
 
 .. code-block:: bash
 
-    python -m pip 'harlequin[postgres]'
+    python -m pip install 'harlequin[postgres]'
 
 Harlequin does not need to be installed in the same virtual environment as Django, as django-harlequin does not import it.
 You only need the ``harlequin`` command on your path, so you can install Harlequin globally, or in an isolated virtual environment with a tool like `pipx <https://pipx.pypa.io/latest/installation/>`__.
