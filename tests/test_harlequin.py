@@ -45,7 +45,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
             == "Connection 'default' has unsupported vendor 'novel'."
         )
 
-    @pytest.mark.skipif(django.VERSION < (5, 0), reason="Django 5.0+ version expected.")
+    @pytest.mark.skipif(django.VERSION < (5, 1), reason="Django 5.1+ version expected.")
     def test_upstream_dbshell_expected_source(self):
         """
         Monitor this upstream command for relevant changes.
@@ -73,6 +73,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
                     parser.add_argument(
                         "--database",
                         default=DEFAULT_DB_ALIAS,
+                        choices=tuple(connections),
                         help=(
                             "Nominates a database onto which to open a shell. Defaults to the "
                             '"default" database.'
@@ -319,7 +320,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
             self.execvpe_mock.mock_calls[0].kwargs["env"]["PGPASSWORD"] == "password123"
         )
 
-    @pytest.mark.skipif(django.VERSION < (5, 0), reason="Django 5.0+ version expected.")
+    @pytest.mark.skipif(django.VERSION < (5, 1), reason="Django 5.1+ version expected.")
     def test_upstream_postgres_client_expected_source(self):
         """
         Monitor this upstream module for relevant changes.
@@ -340,7 +341,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
                 @classmethod
                 def settings_to_cmd_args_env(cls, settings_dict, parameters):
                     args = [cls.executable_name]
-                    options = settings_dict.get("OPTIONS", {})
+                    options = settings_dict["OPTIONS"]
 
                     host = settings_dict.get("HOST")
                     port = settings_dict.get("PORT")
