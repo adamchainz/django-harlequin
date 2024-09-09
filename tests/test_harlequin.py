@@ -16,10 +16,10 @@ from django.test import SimpleTestCase
 from django_harlequin.management.commands import harlequin as harlequin_command
 from tests.utils import run_command
 
+call_command = partial(run_command, "harlequin")
 
-class CreateMaxMigrationFilesTests(SimpleTestCase):
 
-    call_command = partial(run_command, "harlequin")
+class HarlequinTests(SimpleTestCase):
 
     def setUp(self):
         execvpe_mocker = mock.patch.object(os, "execvpe")
@@ -28,7 +28,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
 
     def test_non_existent_database(self):
         with pytest.raises(CommandError) as excinfo:
-            self.call_command("--database", "nonexistent")
+            call_command("--database", "nonexistent")
 
         assert excinfo.value.args[0] == (
             "Error: argument --database: invalid choice: 'nonexistent' "
@@ -38,7 +38,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
     def test_unsupported_vendor(self):
         with mock.patch.object(connection, "vendor", new="novel"):
             with pytest.raises(CommandError) as excinfo:
-                self.call_command()
+                call_command()
 
         assert (
             excinfo.value.args[0]
@@ -167,7 +167,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
         ),
     )
     def test_mysql(self):
-        self.call_command()
+        call_command()
 
         assert self.execvpe_mock.mock_calls == [
             mock.call(
@@ -295,7 +295,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
         ),
     )
     def test_postgres(self):
-        self.call_command()
+        call_command()
 
         assert self.execvpe_mock.mock_calls == [
             mock.call(
@@ -411,7 +411,7 @@ class CreateMaxMigrationFilesTests(SimpleTestCase):
         ),
     )
     def test_sqlite(self):
-        self.call_command()
+        call_command()
 
         assert self.execvpe_mock.mock_calls == [
             mock.call(
