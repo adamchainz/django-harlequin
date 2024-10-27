@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "django-harlequin"
-version = "1.3.0"
+version = "1.4.0"
 description = "Launch Harlequin, the SQL IDE for your Terminal, with your Django database configuration."
 readme = "README.rst"
 keywords = [
