@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from functools import partial
 from inspect import getsource
 from textwrap import dedent
@@ -30,10 +31,16 @@ class HarlequinTests(SimpleTestCase):
         with pytest.raises(CommandError) as excinfo:
             call_command("--database", "nonexistent")
 
-        assert excinfo.value.args[0] == (
-            "Error: argument --database: invalid choice: 'nonexistent' "
-            + "(choose from 'default')"
-        )
+        if sys.version_info >= (3, 13, 1):
+            assert excinfo.value.args[0] == (
+                "Error: argument --database: invalid choice: 'nonexistent' "
+                + "(choose from default)"
+            )
+        else:
+            assert excinfo.value.args[0] == (
+                "Error: argument --database: invalid choice: 'nonexistent' "
+                + "(choose from 'default')"
+            )
 
     def test_unsupported_vendor(self):
         with mock.patch.object(connection, "vendor", new="novel"):
