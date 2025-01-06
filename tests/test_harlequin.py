@@ -31,7 +31,11 @@ class HarlequinTests(SimpleTestCase):
         with pytest.raises(CommandError) as excinfo:
             call_command("--database", "nonexistent")
 
-        if sys.version_info >= (3, 13, 1):
+        if (sys.version_info[:2] == (3, 12) and sys.version_info >= (3, 12, 8)) or (
+            sys.version_info >= (3, 13) and sys.version_info >= (3, 13, 1)
+        ):
+            # CPython change:
+            # gh-117766: Always use str() to print choices in argparse.
             assert excinfo.value.args[0] == (
                 "Error: argument --database: invalid choice: 'nonexistent' "
                 + "(choose from default)"
