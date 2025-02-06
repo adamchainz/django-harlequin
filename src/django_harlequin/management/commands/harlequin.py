@@ -22,7 +22,7 @@ class Command(BaseCommand):
                 "database."
             ),
         )
-        parameters = parser.add_argument_group("parameters", prefix_chars="--")
+        parameters = parser.add_argument_group("parameters")
         parameters.add_argument("parameters", nargs="*")
 
     def handle(self, *args: Any, **options: Any) -> None:

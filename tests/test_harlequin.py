@@ -56,7 +56,7 @@ class HarlequinTests(SimpleTestCase):
             == "Connection 'default' has unsupported vendor 'novel'."
         )
 
-    @pytest.mark.skipif(django.VERSION < (5, 1), reason="Django 5.1+ version expected.")
+    @pytest.mark.skipif(django.VERSION < (5, 2), reason="Django 5.2+ version expected.")
     def test_upstream_dbshell_expected_source(self):
         """
         Monitor this upstream command for relevant changes.
@@ -90,7 +90,7 @@ class HarlequinTests(SimpleTestCase):
                             '"default" database.'
                         ),
                     )
-                    parameters = parser.add_argument_group("parameters", prefix_chars="--")
+                    parameters = parser.add_argument_group("parameters")
                     parameters.add_argument("parameters", nargs="*")
 
                 def handle(self, **options):
