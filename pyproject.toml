@@ -45,7 +45,6 @@ urls.Repository = "https://github.com/adamchainz/django-harlequin"
 [dependency-groups]
 test = [
   "coverage[toml]",
-  "django",
   "mysqlclient",
   "psycopg; python_version>='3.12'",
   "psycopg2-binary; python_version<'3.12'",
