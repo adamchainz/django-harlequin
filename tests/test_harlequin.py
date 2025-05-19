@@ -21,7 +21,6 @@ call_command = partial(run_command, "harlequin")
 
 
 class HarlequinTests(SimpleTestCase):
-
     def setUp(self):
         execvpe_mocker = mock.patch.object(os, "execvpe")
         self.execvpe_mock = execvpe_mocker.start()
@@ -47,9 +46,11 @@ class HarlequinTests(SimpleTestCase):
             )
 
     def test_unsupported_vendor(self):
-        with mock.patch.object(connection, "vendor", new="novel"):
-            with pytest.raises(CommandError) as excinfo:
-                call_command()
+        with (
+            mock.patch.object(connection, "vendor", new="novel"),
+            pytest.raises(CommandError) as excinfo,
+        ):
+            call_command()
 
         assert (
             excinfo.value.args[0]
