@@ -120,7 +120,7 @@ class HarlequinTests(SimpleTestCase):
         )
         assert source == expected
 
-    @pytest.mark.skipif(django.VERSION < (5, 0), reason="Django 5.0+ version expected.")
+    @pytest.mark.skipif(django.VERSION < (6, 0), reason="Django 6.0+ source.")
     def test_upstream_client_expected_source(self):
         """
         Monitor this upstream client for relevant changes.
@@ -144,6 +144,9 @@ class HarlequinTests(SimpleTestCase):
                 def __init__(self, connection):
                     # connection is an instance of BaseDatabaseWrapper.
                     self.connection = connection
+
+                def __del__(self):
+                    del self.connection
 
                 @classmethod
                 def settings_to_cmd_args_env(cls, settings_dict, parameters):
