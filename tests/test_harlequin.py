@@ -60,7 +60,6 @@ class HarlequinTests(SimpleTestCase):
             == "Connection 'default' has unsupported vendor 'novel'."
         )
 
-    @pytest.mark.skipif(django.VERSION < (5, 2), reason="Django 5.2+ version expected.")
     def test_upstream_dbshell_expected_source(self):
         """
         Monitor this upstream command for relevant changes.
@@ -209,7 +208,6 @@ class HarlequinTests(SimpleTestCase):
             ),
         ]
 
-    @pytest.mark.skipif(django.VERSION < (5, 0), reason="Django 5.0+ version expected.")
     def test_upstream_mysql_client_expected_source(self):
         """
         Monitor this upstream module for relevant changes.
@@ -338,7 +336,6 @@ class HarlequinTests(SimpleTestCase):
             self.execvpe_mock.mock_calls[0].kwargs["env"]["PGPASSWORD"] == "password123"
         )
 
-    @pytest.mark.skipif(django.VERSION < (5, 1), reason="Django 5.1+ version expected.")
     def test_upstream_postgres_client_expected_source(self):
         """
         Monitor this upstream module for relevant changes.
@@ -439,7 +436,6 @@ class HarlequinTests(SimpleTestCase):
             ),
         ]
 
-    @pytest.mark.skipif(django.VERSION < (5, 0), reason="Django 5.0+ version expected.")
     def test_upstream_sqlite_client_expected_source(self):
         """
         Monitor this upstream module for relevant changes.
